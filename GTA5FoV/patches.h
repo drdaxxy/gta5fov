@@ -10,6 +10,8 @@ char patchTemplate[] =
 typedef struct patch_parameter_t
 {
 	char *name;
+	char *iniSection;
+	char *iniName;
 	size_t offset;
 	size_t length;
 } patch_parameter_t;
@@ -46,6 +48,8 @@ patch_parameter_t firstPersonWalkingFovParams[] =
 {
 	{
 		"fov",
+		"FirstPerson",
+		"Walking",
 		3,
 		4
 	}
@@ -65,3 +69,4 @@ patch_t fovPatches[] =
 		1
 	}
 };
+size_t fovPatchCount = 1;

@@ -69,19 +69,23 @@ endloops:
 	return codeLoc;
 }
 
+patch_parameter_t *findPatchParameter(patch_t *patch, const char *name)
+{
+	for (size_t i = 0; i < patch->paramCount; i++)
+	{
+		if (strcmp(patch->parameters[i].name, name) == 0)
+			return &patch->parameters[i];
+		break;
+	}
+
+	return NULL;
+}
+
 bool setPatchParameter(patch_t *patch, char *location, const char *paramName, const char *paramValue)
 {
 	if (haveLog) fprintf(logfile, "Setting parameter %s on patch %s\r\n", paramName, patch->name);
-	patch_parameter_t *param = NULL;
 
-	for (size_t i = 0; i < patch->paramCount; i++) 
-	{
-		if (strcmp(patch->parameters[i].name, paramName) == 0)
-		{
-			param = &patch->parameters[i];
-			break;
-		}
-	}
+	patch_parameter_t *param = findPatchParameter(patch, paramName);
 
 	if (param == NULL)
 	{
@@ -112,10 +116,6 @@ DWORD WINAPI fovfix(LPVOID lpParameter)
 	else haveLog = true;
 	if (haveLog) fprintf(logfile, "Logging initialised\r\n");
 
-	float fov;
-	if (!iniReadFloat("FirstPerson", "Walking", 68, &fov)) goto err;
-	if (haveLog) fprintf(logfile, "Target FoV is %f\r\n", fov);
-
 	MODULEINFO modinfo;
 	HMODULE hModule = GetModuleHandle("GTA5.exe");
 	if (hModule == 0) goto err;
@@ -124,10 +124,25 @@ DWORD WINAPI fovfix(LPVOID lpParameter)
 	char *modOffset = (char *)(modinfo.lpBaseOfDll);
 	if (haveLog) fprintf(logfile, "lpBaseOfDll: %llx\r\n", modinfo.lpBaseOfDll);
 
-	char *codeLoc = applyPatch(&fovPatches[0], (char*)modOffset);
-	if (codeLoc == NULL) goto err;
+	float fov;
+	char *codeLoc;
 
-	if (!setPatchParameter(&fovPatches[0], codeLoc, "fov", (char*)&fov)) goto err;
+	for (size_t i = 0; i < fovPatchCount; i++)
+	{
+		patch_parameter_t *param = findPatchParameter(&fovPatches[i], "fov");
+		if (!param)
+		{
+			if (haveLog) fprintf(logfile, "No FoV parameter on FoV patch %s (???)\r\n", fovPatches[i].name);
+			goto err;
+		}
+
+		if (!iniReadFloat(param->iniSection, param->iniName, 68, &fov)) goto err;
+		if (haveLog) fprintf(logfile, "Target %s FoV is %f\r\n", fovPatches[i].name, fov);
+
+		codeLoc = applyPatch(&fovPatches[0], (char*)modOffset);
+		if (codeLoc == NULL) goto err;
+		if (!setPatchParameter(&fovPatches[0], codeLoc, "fov", (char*)&fov)) goto err;
+	}
 
 	goto exit;
 
