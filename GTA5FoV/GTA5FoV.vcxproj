@@ -155,6 +155,12 @@
     <MASM Include="dsound_asm.asm">
       <FileType>Document</FileType>
     </MASM>
+    <None Include="fov.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fov.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GTA5FoV.h" />
