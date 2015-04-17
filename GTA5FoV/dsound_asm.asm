@@ -1,0 +1,39 @@
+.code
+extern mProcs:QWORD
+DirectSoundCaptureCreate_wrapper proc
+	jmp mProcs[0*8]
+DirectSoundCaptureCreate_wrapper endp
+DirectSoundCaptureCreate8_wrapper proc
+	jmp mProcs[1*8]
+DirectSoundCaptureCreate8_wrapper endp
+DirectSoundCaptureEnumerateA_wrapper proc
+	jmp mProcs[2*8]
+DirectSoundCaptureEnumerateA_wrapper endp
+DirectSoundCaptureEnumerateW_wrapper proc
+	jmp mProcs[3*8]
+DirectSoundCaptureEnumerateW_wrapper endp
+DirectSoundCreate_wrapper proc
+	jmp mProcs[4*8]
+DirectSoundCreate_wrapper endp
+DirectSoundCreate8_wrapper proc
+	jmp mProcs[5*8]
+DirectSoundCreate8_wrapper endp
+DirectSoundEnumerateA_wrapper proc
+	jmp mProcs[6*8]
+DirectSoundEnumerateA_wrapper endp
+DirectSoundEnumerateW_wrapper proc
+	jmp mProcs[7*8]
+DirectSoundEnumerateW_wrapper endp
+DirectSoundFullDuplexCreate_wrapper proc
+	jmp mProcs[8*8]
+DirectSoundFullDuplexCreate_wrapper endp
+DllCanUnloadNow_wrapper proc
+	jmp mProcs[9*8]
+DllCanUnloadNow_wrapper endp
+DllGetClassObject_wrapper proc
+	jmp mProcs[10*8]
+DllGetClassObject_wrapper endp
+GetDeviceID_wrapper proc
+	jmp mProcs[11*8]
+GetDeviceID_wrapper endp
+end
