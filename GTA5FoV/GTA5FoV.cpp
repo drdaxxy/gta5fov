@@ -8,12 +8,14 @@
 
 #include "patches.h"
 
+#define LOG(msg, ...) if (haveLog) { fprintf(logfile, msg, __VA_ARGS__); fflush(logfile); }
+
 FILE *logfile;
 BOOL haveLog;
 
 char *applyPatch(patch_t *patch, const char *modOffset)
 {
-	if (haveLog) fprintf(logfile, "Applying patch: %s\r\n", patch->name);
+	LOG("Applying patch: %s\r\n", patch->name);
 	char *patchLoc, *codeLoc, *patchTemp = NULL;
 	DWORD oldProtect;
 
@@ -33,13 +35,13 @@ char *applyPatch(patch_t *patch, const char *modOffset)
 	}
 
 endloops:
-	if (haveLog) fprintf(logfile, "Signature search complete\r\n");
+	LOG("Signature search complete\r\n");
 	if (patchLoc == NULL)
 	{
-		if (haveLog) fprintf(logfile, "Patch failed\r\n");
+		LOG("Patch failed\r\n");
 		return NULL;
 	}
-	if (haveLog) fprintf(logfile, "Signature found at %llx\r\n", patchLoc);
+	LOG("Signature found at %llx\r\n", patchLoc);
 
 	codeLoc = (char *)malloc(patch->codeLength);
 	VirtualProtect(codeLoc, patch->codeLength, PAGE_EXECUTE_READWRITE, &oldProtect);
@@ -47,7 +49,7 @@ endloops:
 	// jump is 13 bytes, return after jump and nops
 	char *afterPatchLoc = patchLoc + patch->jumpOffset + 13 + patch->nopCount;
 	memcpy(codeLoc + patch->jumpBackAddrOffset, &afterPatchLoc, 8);
-	if (haveLog) fprintf(logfile, "Code written\r\n");
+	LOG("Code written\r\n");
 
 	patchTemp = (char *)malloc(13 + patch->nopCount);
 	memcpy(patchTemp, patchTemplate, 13);
@@ -58,11 +60,11 @@ endloops:
 	}
 
 	VirtualProtect(patchLoc + patch->jumpOffset, 13 + patch->nopCount, PAGE_EXECUTE_READWRITE, &oldProtect);
-	if (haveLog) fprintf(logfile, "Game code made RWX\r\n");
+	LOG("Game code made RWX\r\n");
 	memcpy(patchLoc + patch->jumpOffset, patchTemp, 13 + patch->nopCount);
-	if (haveLog) fprintf(logfile, "Game code patched\r\n");
+	LOG("Game code patched\r\n");
 	VirtualProtect(patchLoc + patch->jumpOffset, 13 + patch->nopCount, oldProtect, &oldProtect);
-	if (haveLog) fprintf(logfile, "Game code memory protection restored\r\n");
+	LOG("Game code memory protection restored\r\n");
 
 	free(patchTemp);
 
@@ -83,19 +85,19 @@ patch_parameter_t *findPatchParameter(patch_t *patch, const char *name)
 
 bool setPatchParameter(patch_t *patch, char *location, const char *paramName, const char *paramValue)
 {
-	if (haveLog) fprintf(logfile, "Setting parameter %s on patch %s\r\n", paramName, patch->name);
+	LOG("Setting parameter %s on patch %s\r\n", paramName, patch->name);
 
 	patch_parameter_t *param = findPatchParameter(patch, paramName);
 
 	if (param == NULL)
 	{
-		if (haveLog) fprintf(logfile, "No such parameter\r\n");
+		LOG("No such parameter\r\n");
 		return false;
 	}
 
 	memcpy(location + param->offset, paramValue, param->length);
 
-	if (haveLog) fprintf(logfile, "Parameter set\r\n");
+	LOG("Parameter set\r\n");
 	return true;
 }
 
@@ -114,15 +116,15 @@ DWORD WINAPI fovfix(LPVOID lpParameter)
 
 	if (fopen_s(&logfile, "fov-log.txt", "w") == EINVAL || logfile == NULL) haveLog = false;
 	else haveLog = true;
-	if (haveLog) fprintf(logfile, "Logging initialised\r\n");
+	LOG("Logging initialised\r\n");
 
 	MODULEINFO modinfo;
 	HMODULE hModule = GetModuleHandle("GTA5.exe");
 	if (hModule == 0) goto err;
-	if (haveLog) fprintf(logfile, "Module handle found\r\n");
+	LOG("Module handle found\r\n");
 	GetModuleInformation(GetCurrentProcess(), hModule, &modinfo, sizeof(MODULEINFO));
 	char *modOffset = (char *)(modinfo.lpBaseOfDll);
-	if (haveLog) fprintf(logfile, "lpBaseOfDll: %llx\r\n", modinfo.lpBaseOfDll);
+	LOG("lpBaseOfDll: %llx\r\n", modinfo.lpBaseOfDll);
 
 	float fov;
 	char *codeLoc;
@@ -132,12 +134,12 @@ DWORD WINAPI fovfix(LPVOID lpParameter)
 		patch_parameter_t *param = findPatchParameter(&fovPatches[i], "fov");
 		if (!param)
 		{
-			if (haveLog) fprintf(logfile, "No FoV parameter on FoV patch %s (???)\r\n", fovPatches[i].name);
+			LOG("No FoV parameter on FoV patch %s (???)\r\n", fovPatches[i].name);
 			goto err;
 		}
 
 		if (!iniReadFloat(param->iniSection, param->iniName, 68, &fov)) goto err;
-		if (haveLog) fprintf(logfile, "Target %s FoV is %f\r\n", fovPatches[i].name, fov);
+		LOG("Target %s FoV is %f\r\n", fovPatches[i].name, fov);
 
 		codeLoc = applyPatch(&fovPatches[0], (char*)modOffset);
 		if (codeLoc == NULL) goto err;
