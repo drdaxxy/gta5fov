@@ -141,9 +141,9 @@ DWORD WINAPI fovfix(LPVOID lpParameter)
 		if (!iniReadFloat(param->iniSection, param->iniName, 68, &fov)) goto err;
 		LOG("Target %s FoV is %f\r\n", fovPatches[i].name, fov);
 
-		codeLoc = applyPatch(&fovPatches[0], (char*)modOffset);
+		codeLoc = applyPatch(&fovPatches[i], (char*)modOffset);
 		if (codeLoc == NULL) goto err;
-		if (!setPatchParameter(&fovPatches[0], codeLoc, "fov", (char*)&fov)) goto err;
+		if (!setPatchParameter(&fovPatches[i], codeLoc, "fov", (char*)&fov)) goto err;
 	}
 
 	goto exit;
