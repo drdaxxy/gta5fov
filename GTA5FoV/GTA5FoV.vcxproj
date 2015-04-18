@@ -156,9 +156,13 @@
       <FileType>Document</FileType>
     </MASM>
     <None Include="fov.ini" />
+    <None Include="README.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fov.ini">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="README.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
