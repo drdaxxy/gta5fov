@@ -11,7 +11,7 @@ The latest version can always be found at https://github.com/drdaxxy/gta5fov/rel
 Installation instructions:
 
 - Find your GTA V installation folder (e.g. C:\Program Files (x86)\Steam\SteamApps\common\Grand Theft Auto V). It should have files such as GTAV.exe and bink2w64.dll in it.
-- Extract fov.txt and dsound.dll into that folder.
+- Extract fov.ini and dsound.dll into that folder.
 - Install the Visual C++ 2013 x64 runtime using vcredist_x64.exe if you haven't already.
 - Change the contents of fov.ini to your desired vertical(!) fields of view (ADS is aiming down sight). If you only know the horizontal FoV you want, here's a handy calculator: http://www.rjdown.co.uk/projects/bfbc2/fovcalculator.php
 - All done! Launch the game as usual.
@@ -38,6 +38,9 @@ A: The mod overrides it. If you want the default values back, you can uninstall 
 Q: So how do I uninstall this?
 A: Just delete dsound.dll from your GTA V installation folder again.
 
+Q: I don't want the mod to change all fields of view, how do I disable only some changes?
+A: Edit the fov.ini file and comment out the line (add a ; in front of it).
+
 Q: I have a super fast PC and this doesn't seem to work.
 A: The mod waits 30 seconds after the game starts (i.e. the program opens, not 30 seconds after you gain control of your character) to take effect, as it crashes if it tries to load immediately when the game does. I know there's better ways to avoid this, but I wanted to get this out quickly.
 
@@ -56,6 +59,11 @@ A: The Reddit post: http://www.reddit.com/r/GrandTheftAutoV_PC/comments/32n8m0/i
 -------
 
 Changelog
+
+1.3 (April 18, 2015)
+- Support disabling individual FoV mods by commenting out
+- Support chain-loading other dsound.dll wrappers
+- Disable third-person FoV mod by default (some people are reporting issues)
 
 1.2 (April 18, 2015)
 - Polished and released source
