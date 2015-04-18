@@ -48,6 +48,7 @@ Q: Where's the source code?
 A: https://github.com/drdaxxy/gta5fov
 
 Q: Where do I get the latest version?
+A: https://github.com/drdaxxy/gta5fov/releases
 
 Q: My question wasn't answered / where can I discuss this?
 A: The Reddit post: http://www.reddit.com/r/GrandTheftAutoV_PC/comments/32n8m0/i_made_a_mod_for_freely_setting_your_firstperson/ or preferably the issue tracker on GitHub.
