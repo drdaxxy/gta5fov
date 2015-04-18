@@ -101,11 +101,10 @@ bool setPatchParameter(patch_t *patch, char *location, const char *paramName, co
 	return true;
 }
 
-bool iniReadFloat(const char *section, const char *name, float default, float *out)
+bool iniReadFloat(const char *section, const char *name, float *out)
 {
-	char buffer[100], defaultStr[100];
-	_snprintf_s(defaultStr, 100, "%f", default);
-	GetPrivateProfileString(section, name, defaultStr, buffer, 100, ".\\fov.ini");
+	char buffer[100];
+	GetPrivateProfileString(section, name, "0", buffer, 100, ".\\fov.ini");
 	*out = strtof(buffer, NULL);
 	return (*out != HUGE_VALF && *out != -HUGE_VALF);
 }
@@ -138,7 +137,12 @@ DWORD WINAPI fovfix(LPVOID lpParameter)
 			goto err;
 		}
 
-		if (!iniReadFloat(param->iniSection, param->iniName, 68, &fov)) goto err;
+		if (!iniReadFloat(param->iniSection, param->iniName, &fov)) goto err;
+		if (fov == 0)
+		{
+			LOG("Target %s FoV disabled\r\n", fovPatches[i].name);
+			continue;
+		}
 		LOG("Target %s FoV is %f\r\n", fovPatches[i].name, fov);
 
 		codeLoc = applyPatch(&fovPatches[i], (char*)modOffset);
