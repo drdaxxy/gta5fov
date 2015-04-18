@@ -63,7 +63,7 @@ char firstPersonCarSignature[] =
 };
 char firstPersonCarCode[] =
 {
-	0xC7, 0x83, 0x90, 0x00, 0x00, 0x00,							// mov [rbp+00],
+	0xC7, 0x83, 0x90, 0x00, 0x00, 0x00,							// mov [rbx+00000090], 
 	0x00, 0x00, 0x88, 0x42,										// (fov - default 68)
 	0x48, 0x83, 0xC4, 0x20,										// add rsp, 20 (copied over)
 	0x5B,														// pop rbx (copied over)
@@ -77,6 +77,29 @@ patch_parameter_t firstPersonCarFovParams[] =
 		"fov",
 		"FirstPerson",
 		"Car",
+		6,
+		4
+	}
+};
+
+char firstPersonAimingSignature[] =
+{
+	0xF3, 0x0F, 0x59, 0xC6, 0xF3, 0x0F, 0x58, 0xC1, 0xF3, 0x0F, 0x11, 0x83, 0x74, 0x05, 0x00, 0x00
+};
+char firstPersonAimingCode[] =
+{
+	0xC7, 0x83, 0x74, 0x05, 0x00, 0x00,				// mov [rbx+00000574], 
+	0x00, 0x00, 0x88, 0x42,							// (fov - default 68)
+	0x49, 0xBB,										// mov r11, 
+	0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,	// (return jump address)
+	0x41, 0xFF, 0xE3								// jmp r11
+};
+patch_parameter_t firstPersonAimingFovParams[] =
+{
+	{
+		"fov",
+		"FirstPerson",
+		"Aiming",
 		6,
 		4
 	}
@@ -107,6 +130,18 @@ patch_t fovPatches[] =
 		17,
 		firstPersonCarFovParams,
 		1
+	},
+	{
+		"firstpersonaiming",
+		firstPersonAimingSignature,
+		16,
+		0,
+		3,
+		firstPersonAimingCode,
+		23,
+		12,
+		firstPersonAimingFovParams,
+		1
 	}
 };
-size_t fovPatchCount = 2;
+size_t fovPatchCount = 3;
