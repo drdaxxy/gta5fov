@@ -9,9 +9,11 @@ LPCSTR mImportNames[] = {"DirectSoundCaptureCreate", "DirectSoundCaptureCreate8"
 BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved ) {
 	mHinst = hinstDLL;
 	if ( fdwReason == DLL_PROCESS_ATTACH ) {
-		TCHAR expandedPath[250];
-		ExpandEnvironmentStrings("%WINDIR%\\System32\\dsound.dll", expandedPath, 250);
-		mHinstDLL = LoadLibrary(expandedPath);
+		TCHAR expandedPath[MAX_PATH];
+		ExpandEnvironmentStrings("%WINDIR%\\System32\\dsound.dll", expandedPath, MAX_PATH);
+		char chainPath[MAX_PATH];
+		GetPrivateProfileString("General", "ProxyLibrary", expandedPath, chainPath, MAX_PATH, ".\\fov.ini");
+		mHinstDLL = LoadLibrary(chainPath);
 		if ( !mHinstDLL )
 			return ( FALSE );
 		for ( int i = 0; i < 12; i++ )
