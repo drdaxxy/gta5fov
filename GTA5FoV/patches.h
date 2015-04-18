@@ -220,6 +220,44 @@ patch_t firstPersonADSPatch =
 	1
 };
 
+char thirdPersonGeneralSignature[] =
+{
+	0x0F, 0x28, 0xC8, 0xF3, 0x0F, 0x11, 0x8B, 0x90, 0x00, 0x00, 0x00, 0x0F, 0x28, 0xC8, 0x48, 0x8B, 0xCB
+};
+char thirdPersonGeneralCode[] =
+{
+	0xC7, 0x83, 0x90, 0x00, 0x00, 0x00,				// mov [rbx+00000090], 
+	0x00, 0x00, 0x88, 0x42,							// (fov - default 68)
+	0x0F, 0x28, 0xC8,								// movaps xmm1,xmm0 (copied over)
+	0x48, 0x8B, 0xCB,								// mov rcx,rbx (copied over)
+	0x49, 0xBB,										// mov r11, 
+	0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,	// (return jump address)
+	0x41, 0xFF, 0xE3								// jmp r11
+};
+patch_parameter_t thirdPersonGeneralFovParams[] =
+{
+	{
+		"fov",
+		"ThirdPerson",
+		"General",
+		6,
+		4
+	}
+};
+patch_t thirdPersonGeneralPatch =
+{
+	"thirdpersongeneral",
+	thirdPersonGeneralSignature,
+	17,
+	0,
+	1,
+	thirdPersonGeneralCode,
+	29,
+	18,
+	thirdPersonGeneralFovParams,
+	1
+};
+
 
 patch_t fovPatches[] =
 {
@@ -227,6 +265,7 @@ patch_t fovPatches[] =
 	firstPersonCarPatch,
 	firstPersonAimingPatch,
 	firstPersonCrouchingPatch,
-	firstPersonADSPatch
+	firstPersonADSPatch,
+	thirdPersonGeneralPatch
 };
-size_t fovPatchCount = 5;
+size_t fovPatchCount = 6;
