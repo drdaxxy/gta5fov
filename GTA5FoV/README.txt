@@ -69,6 +69,9 @@ A: The Reddit post: http://www.reddit.com/r/GrandTheftAutoV_PC/comments/32n8m0/i
 
 Changelog
 
+1.31 (June 12, 2015)
+- Update signatures, fix mod for latest patch (fixes #6)
+
 1.3 (April 18, 2015)
 - Support disabling individual FoV mods by commenting out
 - Support chain-loading other dsound.dll wrappers
