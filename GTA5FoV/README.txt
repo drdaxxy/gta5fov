@@ -1,6 +1,6 @@
 This mod allows you to freely set your desired fields of view (first-person walking, driving, aiming, ADS, crouching, and third-person) in Grand Theft Auto V.
 
-Tested and working on the worldwide Steam and retail/Rockstar Warehouse version as of April 18, 2015 - there's no guarantee a future patch won't break it, but this mod will be updated for compatibility if necessary.
+Tested and working on the worldwide Steam and retail/Rockstar Warehouse version as of June 12, 2015 - there's no guarantee a future patch won't break it, but this mod will be updated for compatibility if necessary.
 
 Be advised: We do not yet know the game's anti-cheating measures - use at your own risk. This mod modifies game memory and as such looks like a cheat, and may even be considered one in online multiplayer as having a higher field of view can put players at a competitive advantage. I consider it about as risky as SweetFX, so not very, but a risk is still there.
 
