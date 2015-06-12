@@ -20,6 +20,15 @@ Installation instructions:
 
 Anticipated questions / known issues:
 
+Q: How do I use this with Alexander Blade's ASI loader?
+A:
+- Install the FoV mod as normal.
+- Install ASI loader's dsound.dll but rename it to, for example, asiloader.dll
+- Open fov.ini
+- Uncomment the "ProxyLibrary" line (remove the semicolon at the start of it) and change "other_dsound.dll" to "asiloader.dll"
+- Save fov.ini
+The crucial part here is that the file named dsound.dll in your GTA folder should still be the FoV mod. The other mod needs to have a different name. That doesn't have to be asiloader.dll, of course, you can use whatever name you want, but you'll need to adjust the ProxyLibrary parameter in fov.ini accordingly.
+
 Q: I don't see any "dll".
 A: Windows doesn't display known file extensions by default - if you just see a "bink2w64" file, that's okay, that's what I meant.
 
