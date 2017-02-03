@@ -1,6 +1,6 @@
 This mod allows you to freely set your desired fields of view (first-person walking, driving, aiming, ADS, crouching, and third-person) in Grand Theft Auto V.
 
-Tested and working on the worldwide Steam and retail/Rockstar Warehouse version as of October 11, 2016 - there's no guarantee a future patch won't break it, but this mod will be updated for compatibility if necessary.
+Tested and working on the worldwide Steam and retail/Rockstar Warehouse version as of February 3, 2017 - there's no guarantee a future patch won't break it, but this mod will be updated for compatibility if necessary.
 
 Be advised: We do not yet know the game's anti-cheating measures - use at your own risk. This mod modifies game memory and as such looks like a cheat, and may even be considered one in online multiplayer as having a higher field of view can put players at a competitive advantage. I consider it about as risky as SweetFX, so not very, but a risk is still there.
 
@@ -12,7 +12,7 @@ Installation instructions:
 
 - Find your GTA V installation folder (e.g. C:\Program Files (x86)\Steam\SteamApps\common\Grand Theft Auto V). It should have files such as GTAV.exe and bink2w64.dll in it.
 - Extract fov.ini and dsound.dll into that folder.
-- Install the Visual C++ 2015(!) x64 runtime using vcredist_x64.exe if you haven't already.
+- Install the Visual C++ 2015 Update 3(!) x64 runtime using vcredist_x64.exe if you haven't already.
 - Change the contents of fov.ini to your desired vertical(!) fields of view (ADS is aiming down sight). If you only know the horizontal FoV you want, here's a handy calculator: http://www.rjdown.co.uk/projects/bfbc2/fovcalculator.php
 - All done! Launch the game as usual.
 
@@ -36,7 +36,7 @@ Q: Does this work on the Rockstar Warehouse version of the game too?
 A: Yes.
 
 Q: The game refuses to launch when I have the mod installed.
-A: Did you install vcredist_x64.exe? The version (2015) is important! Microsoft names all their 64-bit packages, regardless of version, vcredist_x64.exe, so you may have installed one such file before which was older, so you'll still need to install this one.
+A: Did you install vcredist_x64.exe? The version (2015 Update 3) is important! Microsoft names all their 64-bit packages, regardless of version, vcredist_x64.exe, so you may have installed one such file before which was older, so you'll still need to install this one.
 !!! THIS WAS UPDATED SINCE THE LAST FOV MOD RELEASE !!!
 
 Q: Okay, but I don't trust you to run a file from you as Administrator.
@@ -69,6 +69,11 @@ A: The Reddit post: http://www.reddit.com/r/GrandTheftAutoV_PC/comments/32n8m0/i
 -------
 
 Changelog
+
+1.34 (February 3, 2017)
+- (internal) probably update MSVC version again
+***This means you need the 2015 Update 3 redistributable now.***
+- Update signatures, fix mod for latest patch (fixes #14)
 
 1.33 (October 11, 2016)
 - (internal) Update MSVC version (because I don't have 2013 installed anymore).
