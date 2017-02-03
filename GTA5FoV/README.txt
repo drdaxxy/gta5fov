@@ -40,7 +40,7 @@ A: Did you install vcredist_x64.exe? The version (2015 Update 3) is important! M
 !!! THIS WAS UPDATED SINCE THE LAST FOV MOD RELEASE !!!
 
 Q: Okay, but I don't trust you to run a file from you as Administrator.
-A: The official download is available at https://www.microsoft.com/en-US/download/details.aspx?id=48145
+A: The official download is available at https://www.microsoft.com/en-us/download/details.aspx?id=53587
 
 Q: Why doesn't the FoV slider in the camera menu work anymore?
 A: The mod overrides it. If you want the default values back, you can uninstall it. If you want an ingame way of changing field of view, I might try utilising the cheat code prompt for that, but no guarantees.
