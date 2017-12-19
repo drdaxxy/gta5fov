@@ -1,6 +1,6 @@
 This mod allows you to freely set your desired fields of view (first-person walking, driving, aiming, ADS, crouching, and third-person) in Grand Theft Auto V.
 
-Tested and working on the worldwide Steam and retail/Rockstar Warehouse version as of February 3, 2017 - there's no guarantee a future patch won't break it, but this mod will be updated for compatibility if necessary.
+Tested and working on the worldwide Steam and retail/Rockstar Warehouse version as of December 19, 2017 - there's no guarantee a future patch won't break it, but this mod will be updated for compatibility if necessary.
 
 Be advised: We do not yet know the game's anti-cheating measures - use at your own risk. This mod modifies game memory and as such looks like a cheat, and may even be considered one in online multiplayer as having a higher field of view can put players at a competitive advantage. I consider it about as risky as SweetFX, so not very, but a risk is still there.
 
@@ -37,7 +37,6 @@ A: Yes.
 
 Q: The game refuses to launch when I have the mod installed.
 A: Did you install vcredist_x64.exe? The version (2015 Update 3) is important! Microsoft names all their 64-bit packages, regardless of version, vcredist_x64.exe, so you may have installed one such file before which was older, so you'll still need to install this one.
-!!! THIS WAS UPDATED SINCE THE LAST FOV MOD RELEASE !!!
 
 Q: Okay, but I don't trust you to run a file from you as Administrator.
 A: The official download is available at https://www.microsoft.com/en-us/download/details.aspx?id=53587
@@ -69,6 +68,9 @@ A: The Reddit post: http://www.reddit.com/r/GrandTheftAutoV_PC/comments/32n8m0/i
 -------
 
 Changelog
+
+1.35 (December 19, 2017)
+- Update signatures, fix mod for latest patch (build 1290) (fixes #17)
 
 1.34 (February 3, 2017)
 - (internal) probably update MSVC version again
